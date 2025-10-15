@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.RobotBase;
 
 public class Constants {
@@ -15,4 +16,9 @@ public class Constants {
     
     REPLAY
   }
+
+  public static final boolean SIM_LOG = false;
+
+  public static final boolean LIVE_TUNING = true;
+
 }
