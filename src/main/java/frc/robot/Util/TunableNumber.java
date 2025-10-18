@@ -9,7 +9,7 @@ import frc.robot.Constants;
 public class TunableNumber implements DoubleSupplier{
   private static final String basekey = "/Tuning";
   private final String key;
-  private final boolean tuningMode = Constants.LIVE_TUNING;
+  private boolean tuningMode = Constants.LIVE_TUNING;
   private double defaultValue;
   private boolean hasDefaultValue = false;
   private LoggedNetworkNumber networkNumber;
@@ -21,6 +21,11 @@ public class TunableNumber implements DoubleSupplier{
   public TunableNumber(String valueKey, double defaultValue){
     this(valueKey);
     setDefaultValue(defaultValue);
+  }
+
+  public TunableNumber(String valueKey, double defaultValue, boolean disableTuning){
+    this(valueKey, defaultValue);
+    tuningMode = disableTuning;
   }
 
   public void setDefaultValue(double value){
@@ -36,6 +41,8 @@ public class TunableNumber implements DoubleSupplier{
 
   public double get(){
     if(!hasDefaultValue){
+      defaultValue = 0;
+      hasDefaultValue = true;
       return 0.0;
     } else{
     return tuningMode ? networkNumber.get() : defaultValue;

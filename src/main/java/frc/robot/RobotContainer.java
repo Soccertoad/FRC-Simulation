@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Subsystems.Elevator.Elevator;
 import frc.robot.Subsystems.Elevator.ElevatorIO;
 import frc.robot.Subsystems.Elevator.ElevatorIOSim;
+import frc.robot.Subsystems.SuperStructure.SuperStructure;
 import frc.robot.Util.TunableNumber;
 
 public class RobotContainer {
@@ -20,7 +21,8 @@ public class RobotContainer {
   private final CommandXboxController Operator = new CommandXboxController(1);
   private final CommandXboxController TEST = new CommandXboxController(5);
 
-  Elevator elevator;
+  private Elevator elevator;
+  private SuperStructure superStructure;
   public RobotContainer() {
 
     switch(Constants.CURRENT_MODE){
@@ -36,6 +38,8 @@ public class RobotContainer {
         elevator = new Elevator(new ElevatorIO() {});
       }
     }
+    
+    superStructure = new SuperStructure(elevator);
 
     configureBindings();
     if(Constants.LIVE_TUNING){
