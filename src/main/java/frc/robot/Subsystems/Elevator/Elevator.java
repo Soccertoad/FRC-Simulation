@@ -74,7 +74,7 @@ public class Elevator extends SubsystemBase {
   }
 
   public boolean isTilted(){
-    if(getPositionMeters() >= Meter.convertFrom(0.4, Inches)){
+    if(getDesiredPosition() != 0.02){
       isTilted = false;
     }
     return isTilted;

@@ -12,7 +12,7 @@ public interface ElevatorIO {
     public double tempCelcius = 0;
     public double positionMeters = 0;
     public double velocityMetersPerSecond = 0;
-    public double desiredPositionMeters = 0;
+    public double desiredPositionMeters = 0.02;
 
     public double appliedVolts = 0;
     public double statorCurrent = 0;

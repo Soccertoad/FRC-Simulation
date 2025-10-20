@@ -4,6 +4,7 @@
 
 package frc.robot.Subsystems.SuperStructure;
 
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Subsystems.Elevator.Elevator;
 
@@ -11,8 +12,8 @@ public class SuperStructure extends SubsystemBase {
 
   private Elevator elevator;
 
-  private Visulizer realRobot = new Visulizer("Real Robot");
-  private Visulizer desiredRobot = new Visulizer("Desired Robot");
+  private Visulizer realRobot = new Visulizer("Real Robot", Color.kDarkCyan);
+  private Visulizer desiredRobot = new Visulizer("Desired Robot", Color.kOrange);
 
   /** Creates a new SuperStructure. */
   public SuperStructure(Elevator elevator) {

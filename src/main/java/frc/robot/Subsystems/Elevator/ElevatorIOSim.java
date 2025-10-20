@@ -38,7 +38,7 @@ public class ElevatorIOSim implements ElevatorIO {
       0 
     );
 
-    controller = new PIDController(5, 0, 0);
+    controller = new PIDController(7, 0, 0);
 
     physicsSim.update(0.02);
 
