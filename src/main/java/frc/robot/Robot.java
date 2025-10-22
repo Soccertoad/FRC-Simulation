@@ -11,6 +11,8 @@ import org.littletonrobotics.junction.networktables.NT4Publisher;
 import org.littletonrobotics.junction.wpilog.WPILOGReader;
 import org.littletonrobotics.junction.wpilog.WPILOGWriter;
 
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -32,7 +34,9 @@ public class Robot extends LoggedRobot {
         break;
 
       case SIM:
-
+        if(Constants.SIM_LOG){
+          Logger.addDataReceiver(new WPILOGWriter());
+        }
         Logger.addDataReceiver(new NT4Publisher());
         break;
 
@@ -46,6 +50,8 @@ public class Robot extends LoggedRobot {
     }
 
     Logger.start(); // Start logging! No more data receivers, replay sources, or metadata values may be added.
+    Pose3d pose = new Pose3d(0, 0, 0, new Rotation3d(0,0,0));
+    Logger.recordOutput("Null Pose", pose);
 
     m_robotContainer = new RobotContainer();
   }
@@ -53,6 +59,7 @@ public class Robot extends LoggedRobot {
   @Override
   public void robotPeriodic() {
     CommandScheduler.getInstance().run();
+    
   }
 
   @Override
