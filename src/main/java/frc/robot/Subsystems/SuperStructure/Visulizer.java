@@ -8,8 +8,8 @@ import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
 import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Rotation3d;
-import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.geometry.Translation3d;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
@@ -34,10 +34,12 @@ public class Visulizer {
   Rotation3d elevatorTilt = new Rotation3d(0, startingTilt.in(Radian), 0);
   Translation3d elevatorOrigin = new Translation3d(0.37, 0, 0.08);
 
-  private Distance firstStageEnd = Feet.of(3);
-  private Distance secondStageEnd = Feet.of(6);
-  // stage thickness times 2 for being rectangle
-  private Distance stageThickness = Inches.of(1).times(2);
+  private Distance firstStageEnd = Inch.of(35.2);
+  private Distance secondStageEnd = Inch.of(35.825);
+  private Distance carrageLength = Inch.of(6);
+
+  // stage thickness 
+  private Distance stageThickness = Inch.of(1);
   
   public Visulizer(String name, Color color){
     this.name = name;
@@ -62,48 +64,29 @@ public class Visulizer {
 
   public void update(double elevatorHeightMeters, boolean isTilted){
     if(!isTilted){
-      elevator.setAngle(uprightElevator.in(Degrees));
       elevatorTilt = new Rotation3d(0, uprightElevator.in(Radian), 0);
+      elevator.setAngle(new Rotation2d(Degree.of(90)));
+      
     }
     elevator.setLength(elevatorHeightMeters);
     Logger.recordOutput("Mech2d/" + name, mech);
 
+    double heightFromBottom = elevatorHeightMeters + stageThickness.times(8).in(Meters) + elevatorOrigin.getY();
 
-    // double stage2Height = -Math.max(
-    //   // Math.max(
-    //   //   heightFromBottom - thirdStage.in(Meters), 
-    //   //   heightFromBottom - secondStage.in(Meters)
-    //   // ), 
-    //   heightFromBottom - thirdStage.in(Meters),
-    //   0.0
-    // );
+    double stage1Height = elevatorOrigin.getY();
+    double stage2Height = -Math.min(firstStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
+    double stage3Height = -Math.min(secondStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
+    double carrageHeight = -Math.min(secondStageEnd.minus(carrageLength).minus(stageThickness).in(Meter), heightFromBottom/3);
 
-    double heightFromBottom = elevatorHeightMeters + (stageThickness.in(Meters) * 3);
-    /* 
-    double stage2Height = -Math.max(
-      0.0,
-      Math.min(
-        heightFromBottom - firstStageEnd.in(Meter),
-        secondStageEnd.in(Meter)
-      )
-    );
-    double stage3Height = -Math.max(
-      0.0, 
-      heightFromBottom - secondStageEnd.in(Meter)
-    );
-    */
-    double stage2Height = -heightFromBottom/3;
-    double stage3Height = -heightFromBottom/3;
-    
     Translation3d stage1 = new Translation3d(elevatorOrigin.getY(), elevatorTilt);
 
-    Translation3d stage2 = stage1.plus(new Translation3d(stage2Height, elevatorTilt));
+    Translation3d stage2 = stage1.plus(new Translation3d(stage2Height, new Rotation3d(0, /*elevatorTilt.getY()*/ Degree.of(90).in(Radian), 0)));
 
-    Translation3d stage3 = stage2.plus(new Translation3d(stage3Height, elevatorTilt));
+    Translation3d stage3 = stage2.plus(new Translation3d(stage3Height, new Rotation3d(0, /*elevatorTilt.getY()*/ Degree.of(90).in(Radian), 0)));
 
-    Translation3d carrageHeight = stage3.plus(new Translation3d(-heightFromBottom/3, elevatorTilt));
+    Translation3d carrage = stage3.plus(new Translation3d(carrageHeight, new Rotation3d(0, /*elevatorTilt.getY()*/ Degree.of(90).in(Radian), 0)));
 
-    Translation3d manipulatorPosition = carrageHeight;
+    Translation3d manipulatorPosition = carrage;
 
     Pose3d[] elevatorStages = {
       new Pose3d(
@@ -126,7 +109,7 @@ public class Visulizer {
       ),
       new Pose3d(
         elevatorOrigin.plus(
-          carrageHeight
+          carrage
         ),
         Rotation3d.kZero
       ),
