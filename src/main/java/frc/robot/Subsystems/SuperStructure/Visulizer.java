@@ -73,7 +73,7 @@ public class Visulizer {
 
     double heightFromBottom = elevatorHeightMeters + stageThickness.times(8).in(Meters) + elevatorOrigin.getY();
 
-    double stage1Height = elevatorOrigin.getY();
+    //double stage1Height = elevatorOrigin.getY();
     double stage2Height = -Math.min(firstStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
     double stage3Height = -Math.min(secondStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
     double carrageHeight = -Math.min(secondStageEnd.minus(carrageLength).minus(stageThickness).in(Meter), heightFromBottom/3);

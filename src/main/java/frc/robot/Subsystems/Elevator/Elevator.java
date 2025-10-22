@@ -4,12 +4,9 @@
 
 package frc.robot.Subsystems.Elevator;
 
-import static edu.wpi.first.units.Units.*;
+//import static edu.wpi.first.units.Units.*;
 
 import org.littletonrobotics.junction.Logger;
-import org.littletonrobotics.junction.mechanism.LoggedMechanism2d;
-import org.littletonrobotics.junction.mechanism.LoggedMechanismLigament2d;
-import org.littletonrobotics.junction.mechanism.LoggedMechanismRoot2d;
 
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,11 +17,6 @@ public class Elevator extends SubsystemBase {
   private ElevatorIO io;
   private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
   private boolean isTilted = true;
-  
-  // LoggedMechanism2d mech = new LoggedMechanism2d(Inches.of(32).in(Meters), ElevatorConstants.maxExtension.in(Meters));
-  // LoggedMechanismRoot2d root = mech.getRoot("BaseElevator", 2, 0);
-  // LoggedMechanismLigament2d elevator = root.append(new LoggedMechanismLigament2d("Elevator", getPositionMeters(), 90));
-
 
   /** Creates a new Elevator. */
   public Elevator(ElevatorIO m_io) {
@@ -51,8 +43,6 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     io.updateInputs(inputs);
     Logger.processInputs("Elevator", inputs);
-    // Logger.recordOutput("Mech2d", mech);
-    // elevator.setLength(getPositionMeters());
 
   }
 

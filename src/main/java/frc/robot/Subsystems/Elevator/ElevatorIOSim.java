@@ -2,10 +2,9 @@ package frc.robot.Subsystems.Elevator;
 
 import static edu.wpi.first.units.Units.*;
 
-import edu.wpi.first.math.controller.ElevatorFeedforward;
+//import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
-import edu.wpi.first.units.measure.MutDistance;
 import edu.wpi.first.units.measure.Voltage;
 import edu.wpi.first.wpilibj.simulation.ElevatorSim;
 
@@ -13,7 +12,7 @@ public class ElevatorIOSim implements ElevatorIO {
 
   private ElevatorSim physicsSim;
   private PIDController controller;
-  private ElevatorFeedforward feedforward;
+  //private ElevatorFeedforward feedforward;
   // private LinearSystemId plant ;
   private double updateVoltage = 0;
   private double desiredPosition;

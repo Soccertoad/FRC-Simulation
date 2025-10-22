@@ -1,0 +1,129 @@
+{
+  "name" : "Theseus",
+  "rotations" : [
+    {
+      "axis": "x",
+      "degrees": 90
+    },
+    {
+      "axis": "z",
+      "degrees": 90
+    }
+  ],
+  "position" : [
+    0,
+    0,
+    0
+  ],
+
+  "components":[
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        -0.37,
+        0,
+        -0.08
+      ]
+    },
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        -0.38,
+        0,
+        -0.88
+      ]
+    },
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        -0.385,
+        0,
+        -1.7
+      ]
+    },
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        -0.385,
+        0,
+        -2.25
+      ]
+    },
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        -0.455,
+        0,
+        -2.31
+      ]
+    },
+    {
+      "zeroedRotations" : [
+        {
+          "axis": "x",
+          "degrees": 90
+        },
+        {
+          "axis": "z",
+          "degrees": 90
+        }
+      ],
+
+      "zeroedPosition": [
+        0.343,
+        0,
+        -0.321
+      ]
+    }
+  ]
+}
