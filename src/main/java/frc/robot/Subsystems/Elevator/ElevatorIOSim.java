@@ -2,7 +2,7 @@ package frc.robot.Subsystems.Elevator;
 
 import static edu.wpi.first.units.Units.*;
 
-//import edu.wpi.first.math.controller.ElevatorFeedforward;
+import edu.wpi.first.math.controller.ElevatorFeedforward;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Voltage;
