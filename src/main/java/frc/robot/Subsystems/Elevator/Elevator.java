@@ -20,7 +20,6 @@ public class Elevator extends SubsystemBase {
 
   /** Creates a new Elevator. */
   public Elevator(ElevatorIO m_io) {
-
     this.io = m_io; 
 
   }
