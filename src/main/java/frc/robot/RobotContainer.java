@@ -6,9 +6,13 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import org.ironmaple.simulation.SimulatedArena;
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
@@ -22,6 +26,7 @@ import frc.robot.Subsystems.SuperStructure.SuperStructure;
 import frc.robot.Subsystems.Swerve.CommandSwerveDrivetrain;
 import frc.robot.Subsystems.Swerve.generated.Telemetry;
 import frc.robot.Subsystems.Swerve.generated.TunerConstants;
+import frc.robot.Util.AIRobotInSimulation2024;
 
 public class RobotContainer {
   private final CommandXboxController Driver = new CommandXboxController(0);
@@ -54,6 +59,10 @@ public class RobotContainer {
 
       case SIM -> {
         elevator = new Elevator(new ElevatorIOSim());
+
+        drivetrain.resetPose(new Pose2d(3,3, new Rotation2d()));
+        resetSimAuto();
+        AIRobotInSimulation2024.startOpponentRobotSimulations();
       }
 
       case REPLAY -> {
@@ -63,8 +72,8 @@ public class RobotContainer {
     
     superStructure = new SuperStructure(elevator);
 
-    ctreBindings();
     configureBindings();
+
     if(Constants.LIVE_TUNING){
       programmingTestBindings();
     }
@@ -79,9 +88,7 @@ public class RobotContainer {
     
     //elevator.setDefaultCommand(elevator.setPosition(funky::getLeftY));
 
-  }
-  private void ctreBindings(){
-       // Note that X is defined as forward according to WPILib convention,
+    // Note that X is defined as forward according to WPILib convention,
     // and Y is defined as to the left according to WPILib convention.
     drivetrain.setDefaultCommand(
       // Drivetrain will execute this command periodically
@@ -119,5 +126,27 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() {
     return Commands.print("No autonomous command configured");
+  }
+
+  public void resetSimAuto(){
+    SimulatedArena.getInstance().resetFieldForAuto();
+  }
+  public void simPeriodic(){
+    SimulatedArena.getInstance().simulationPeriodic();
+    
+    Logger.recordOutput(
+      "FieldSimulation/Coral",
+      SimulatedArena.getInstance().getGamePiecesArrayByType("Coral"));
+    Logger.recordOutput(
+      "FieldSimulation/Algae",
+      SimulatedArena.getInstance().getGamePiecesArrayByType("Algae"));
+    Logger.recordOutput(
+      "FieldSimulation/Alliance-Robots", 
+      AIRobotInSimulation2024.getAlliancePartnerRobotPoses()
+    );
+    Logger.recordOutput(
+      "FieldSimulation/Opposing-Robots", 
+      AIRobotInSimulation2024.getOpponentRobotPoses()
+    );
   }
 }
