@@ -15,6 +15,7 @@ public class SuperStructure extends SubsystemBase {
   private Visulizer realRobot = new Visulizer("Real Robot", Color.kDarkCyan);
   private Visulizer desiredRobot = new Visulizer("Desired Robot", Color.kOrange);
 
+  
   /** Creates a new SuperStructure. */
   public SuperStructure(Elevator elevator) {
     this.elevator = elevator;
@@ -22,7 +23,7 @@ public class SuperStructure extends SubsystemBase {
 
   @Override
   public void periodic() {
-    realRobot.update(elevator.getPositionMeters(), elevator.isTilted());
-    desiredRobot.update(elevator.getDesiredPosition(), elevator.isTilted());
+    realRobot.update(elevator.getPositionMeters());
+    desiredRobot.update(elevator.getDesiredPosition());
   }
 }

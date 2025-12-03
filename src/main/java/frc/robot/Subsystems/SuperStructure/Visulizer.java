@@ -62,8 +62,8 @@ public class Visulizer {
     elevator.setLength(0.2);
   }
 
-  public void update(double elevatorHeightMeters, boolean isTilted){
-    if(!isTilted){
+  public void update(double elevatorHeightMeters){
+    if(true){
       elevatorTilt = new Rotation3d(0, uprightElevator.in(Radian), 0);
       elevator.setAngle(new Rotation2d(Degree.of(90)));
       
@@ -73,7 +73,6 @@ public class Visulizer {
 
     double heightFromBottom = elevatorHeightMeters + stageThickness.times(8).in(Meters) + elevatorOrigin.getY();
 
-    double stage1Height = elevatorOrigin.getY();
     double stage2Height = -Math.min(firstStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
     double stage3Height = -Math.min(secondStageEnd.minus(Inch.of(4)).in(Meter), heightFromBottom/3);
     double carrageHeight = -Math.min(secondStageEnd.minus(carrageLength).minus(stageThickness).in(Meter), heightFromBottom/3);
@@ -123,8 +122,8 @@ public class Visulizer {
     Logger.recordOutput("Robot3d/" + name, elevatorStages);
   }
 
-  public void update(Distance elevatorHeightMeters, boolean isTilted){
-    update(elevatorHeightMeters.in(Meters), isTilted);
+  public void update(Distance elevatorHeightMeters){
+    update(elevatorHeightMeters.in(Meters));
   }
 
 }

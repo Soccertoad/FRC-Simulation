@@ -9,25 +9,25 @@ import static edu.wpi.first.units.Units.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.Subsystems.Elevator.Elevator;
 import frc.robot.Subsystems.Elevator.ElevatorIO;
 import frc.robot.Subsystems.Elevator.ElevatorIOSim;
+import frc.robot.Subsystems.Elevator.ElevatorIOTalonFX;
 import frc.robot.Subsystems.SuperStructure.SuperStructure;
-import frc.robot.Util.TunableNumber;
 
 public class RobotContainer {
-  private final CommandXboxController Driver = new CommandXboxController(0);
   private final CommandXboxController Operator = new CommandXboxController(1);
-  private final CommandXboxController TEST = new CommandXboxController(5);
+  
+  @SuppressWarnings("unused")
+  private SuperStructure superStructure;
 
   private Elevator elevator;
-  private SuperStructure superStructure;
+  
   public RobotContainer() {
 
     switch(Constants.CURRENT_MODE){
       case REAL ->{
-
+        elevator = new Elevator(new ElevatorIOTalonFX());
       }
 
       case SIM -> {
@@ -38,13 +38,9 @@ public class RobotContainer {
         elevator = new Elevator(new ElevatorIO() {});
       }
     }
-    
-    superStructure = new SuperStructure(elevator);
-
     configureBindings();
-    if(Constants.LIVE_TUNING){
-      programmingTestBindings();
-    }
+
+    superStructure = new SuperStructure(elevator);
   }
 
   private void configureBindings() {
@@ -52,17 +48,7 @@ public class RobotContainer {
     Operator.a().whileTrue(elevator.setPosition(Feet.of(5)));
     Operator.b().onTrue(elevator.setPosition(Feet.of(8.9)));
     Operator.x().onTrue(elevator.setPosition(Feet.of(1)));
-    //elevator.setDefaultCommand(elevator.setPosition(Feet.of(elevatorHeight.get())));
-    
-    //elevator.setDefaultCommand(elevator.setPosition(funky::getLeftY));
 
-  }
-
-  private void programmingTestBindings(){
-    TEST.a().and(TEST.rightBumper()).whileTrue(elevator.runQStaticSysId(SysIdRoutine.Direction.kForward));
-    TEST.b().and(TEST.rightBumper()).whileTrue(elevator.runQStaticSysId(SysIdRoutine.Direction.kReverse));
-    TEST.x().and(TEST.rightBumper()).whileTrue(elevator.runDynamicSysId(SysIdRoutine.Direction.kForward));
-    TEST.y().and(TEST.rightBumper()).whileTrue(elevator.runDynamicSysId(SysIdRoutine.Direction.kReverse));
   }
 
   public Command getAutonomousCommand() {

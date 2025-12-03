@@ -25,5 +25,7 @@ public final class ElevatorConstants {
   public static final double drumCircumferenceMeters = driveSprocketTeeth * chainPitch.in(Meters);
   public static final double drumRadiusMeters = drumCircumferenceMeters / (Math.PI * 2);
 
+  public static final int ELEVATOR_ID = 15;
+
   public static final TunableNumber kP_sim = new TunableNumber("/Elevator", 5, true);
 }
