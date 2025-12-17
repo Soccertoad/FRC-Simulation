@@ -6,7 +6,6 @@ import edu.wpi.first.math.system.plant.DCMotor;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.Distance;
 import edu.wpi.first.units.measure.Mass;
-import frc.robot.Util.TunableNumber;
 
 public final class ElevatorConstants {
   public static final DCMotor motorSim = DCMotor.getKrakenX60(1);
@@ -27,5 +26,5 @@ public final class ElevatorConstants {
 
   public static final int ELEVATOR_ID = 15;
 
-  public static final TunableNumber kP_sim = new TunableNumber("/Elevator", 5, true);
+  //public static final Tunable kP_sim = new Tunable("/Elevator", 5, true);
 }

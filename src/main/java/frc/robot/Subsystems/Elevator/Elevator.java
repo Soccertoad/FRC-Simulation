@@ -5,13 +5,16 @@
 package frc.robot.Subsystems.Elevator;
 
 import edu.wpi.first.units.measure.Distance;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Util.TunableNumber;
 
 public class Elevator extends SubsystemBase {
 
   private ElevatorIO io;
   private ElevatorIOInputsAutoLogged inputs = new ElevatorIOInputsAutoLogged();
+  private TunableNumber testing = new TunableNumber("Elevator/Test", 5);
 
   /** Creates a new Elevator. */
   public Elevator(ElevatorIO m_io) {
@@ -23,6 +26,8 @@ public class Elevator extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     io.updateInputs(inputs);
+
+    SmartDashboard.putNumber("Current Value", testing.getAsDouble());
 
   }
 

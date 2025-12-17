@@ -38,7 +38,7 @@ public class RobotContainer {
         elevator = new Elevator(new ElevatorIO() {});
       }
     }
-    configureBindings();
+    //configureBindings();
 
     superStructure = new SuperStructure(elevator);
   }
