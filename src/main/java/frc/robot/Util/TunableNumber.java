@@ -7,6 +7,7 @@ import edu.wpi.first.networktables.DoubleEntry;
 import edu.wpi.first.networktables.DoubleTopic;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.networktables.PubSubOption;
 import frc.robot.Constants;
 
 public class TunableNumber implements DoubleSupplier {
@@ -14,13 +15,12 @@ public class TunableNumber implements DoubleSupplier {
   private final NetworkTable NTable = NetworkTableInstance.getDefault().getTable(DIRECTORY);
   private final String key;
 
-  private DoubleEntry NEntry;
   private DoubleTopic NTopic;
+  private DoubleEntry NEntry;
 
-  private boolean hasDefault = false;
   private double defaultValue;
   private double tunableValue;  
-  
+  private boolean hasDefault = false;  
 
   public TunableNumber(String m_key){
     this.key = m_key;
@@ -38,6 +38,7 @@ public class TunableNumber implements DoubleSupplier {
       this.defaultValue = m_defaultValue;
 
       if(Constants.LIVE_TUNING){
+        //tunableValue = defaultValue;
         NTopic = NTable.getDoubleTopic(key);
         NEntry = NTopic.getEntry(m_defaultValue);
       }
@@ -48,7 +49,7 @@ public class TunableNumber implements DoubleSupplier {
     if(!hasDefault){
       return 0.0;
     } else {
-      return Constants.LIVE_TUNING ? NEntry.get() : defaultValue;
+      return Constants.LIVE_TUNING ? NEntry.getAsDouble() : defaultValue;
     }
   }
 
@@ -56,8 +57,7 @@ public class TunableNumber implements DoubleSupplier {
     if(!Constants.LIVE_TUNING) return false;
 
     double currentValue = get();
-    double lastValue = tunableValue;
-    if(currentValue != lastValue){
+    if(currentValue != tunableValue){
       tunableValue = currentValue;
       NEntry.set(tunableValue);
       return true;

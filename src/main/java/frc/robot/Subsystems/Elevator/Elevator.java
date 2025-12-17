@@ -27,7 +27,8 @@ public class Elevator extends SubsystemBase {
     // This method will be called once per scheduler run
     io.updateInputs(inputs);
 
-    SmartDashboard.putNumber("Current Value", testing.getAsDouble());
+    testing.hasChanged();
+    SmartDashboard.putNumber("Current Value", testing.get());
 
   }
 
